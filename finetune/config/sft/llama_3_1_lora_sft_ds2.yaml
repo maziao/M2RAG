@@ -1,0 +1,40 @@
+### model
+model_name_or_path: ./models/Llama-3.1-8B-Instruct/original
+trust_remote_code: true
+
+### method
+stage: sft
+do_train: true
+do_eval: false
+finetuning_type: lora
+lora_target: all
+lora_rank: 128
+lora_alpha: 256
+deepspeed: ./finetune/config/deepspeed/ds_z2_config.json
+flash_attn: fa2
+enable_liger_kernel: true
+
+### dataset
+dataset_dir: ./finetune
+dataset: M2RAG-LLM
+template: llama3
+cutoff_len: 32768
+overwrite_cache: true
+preprocessing_num_workers: 16
+
+### output
+output_dir: ./models/Llama-3.1-8B-Instruct/checkpoint
+logging_steps: 1
+save_steps: 100
+plot_loss: true
+overwrite_output_dir: true
+
+### train
+per_device_train_batch_size: 2
+gradient_accumulation_steps: 16
+learning_rate: 1.0e-4
+num_train_epochs: 3.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.1
+bf16: true
+ddp_timeout: 180000000

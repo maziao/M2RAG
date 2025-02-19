@@ -1,0 +1,11 @@
+type: ImageDeduplicateWatcher
+params:
+  mongodb_url: ~
+  database_name: ~
+  batch_size: 100
+  interval_on_empty_cycle: 0
+  image_root: ~
+
+  image_dedup_config:
+    type: PHashImageDeduplicateAgent
+    params: {}

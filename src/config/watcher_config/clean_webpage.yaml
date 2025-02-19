@@ -1,0 +1,37 @@
+type: CleanWebpageWatcher
+params:
+  mongodb_url: ~
+  database_name: ~
+  batch_size: 512
+  webpage_cleaner_config:
+    type: WebpageCleaner
+    params:
+      model_config:
+
+        type: DeepSeekLLM
+        params:
+          model: deepseek-chat
+          tokenizer_path: deepseek-ai/DeepSeek-V2-Chat
+          deepseek_api_key: ~
+
+        # type: VLLMLLM
+        # params:
+        #   model: qwen2.5-72b-instruct
+        #   tokenizer_path: Qwen/Qwen2.5-72B-Instruct
+        #   vllm_api_key: ~
+        #   vllm_service_url: ~
+        
+      chunk_size: 1000
+      max_chunks: 200
+      multi_thread_config:
+        num_threads: 1
+        max_retry_on_failure: 0
+        log_warning_on_failure: True
+        mark_as_completed_on_failure: False
+        timeout: ~
+  multi_thread_config:
+    num_threads: 1
+    max_retry_on_failure: 0
+    log_warning_on_failure: True
+    mark_as_completed_on_failure: False
+    timeout: ~

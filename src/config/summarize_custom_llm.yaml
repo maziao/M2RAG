@@ -1,0 +1,82 @@
+summarizer_config:
+  type: M2RAGLLMSummarizer
+  params:
+    tag: ~
+
+    model_config:
+      type: OpenAILLM
+      params:
+        model: gpt-4o-2024-08-06
+        openai_api_key: ~
+        openai_base_url: ~
+
+    # model_config:
+    #   type: OpenAILLM
+    #   params:
+    #     model: deepseek-v3
+    #     openai_api_key: ~
+    #     openai_base_url: ~
+
+    # model_config:
+    #   type: OpenAILLM
+    #   params:
+    #     model: o3-mini-2025-01-31
+    #     openai_api_key: ~
+    #     openai_base_url: ~
+    
+    # model_config:
+    #   type: VLLMLLM
+    #   params:
+    #     model: llama-3.1-70b-instruct
+    #     tokenizer_path: meta-llama/Meta-Llama-3.1-70B-Instruct
+    #     vllm_api_key: ~
+    #     vllm_service_url: ~
+
+    # model_config:
+    #   type: VLLMLLM
+    #   params:
+    #     model: qwen2.5-72b-instruct
+    #     tokenizer_path: Qwen/Qwen2.5-72B-Instruct
+    #     vllm_api_key: ~
+    #     vllm_service_url: ~
+
+    # model_config:
+    #   type: VLLMLLM
+    #   params:
+    #     model: llama-3.1-8b-instruct
+    #     tokenizer_path: meta-llama/Llama-3.1-8B-Instruct
+    #     vllm_api_key: ~
+    #     vllm_service_url: ~
+
+    # model_config:
+    #   type: VLLMLLM
+    #   params:
+    #     model: qwen2.5-7b-instruct
+    #     tokenizer_path: Qwen/Qwen2.5-7B-Instruct
+    #     vllm_api_key: ~
+    #     vllm_service_url: ~
+
+    max_samples: ~
+    
+    max_pieces: ~
+    max_pieces_per_sample: 20
+    min_piece_score: 3
+    max_tokens_per_sample: 8192
+
+    max_images: 10
+    max_images_per_sample: 5
+    max_aux_images: 5
+    max_image_score: 1.0e+10
+    min_image_score: 3
+    
+    output_detailed_caption: False
+    multi_stage: False
+dry_run: False
+multi_thread_config:
+  num_threads: 10
+  max_retry_on_failure: 0
+  log_warning_on_failure: True
+  mark_as_completed_on_failure: False
+  timeout: ~
+log_dir: ./log
+levels: [1]

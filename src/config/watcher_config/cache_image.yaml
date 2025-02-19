@@ -1,0 +1,24 @@
+type: CacheImageWatcher
+params:
+  mongodb_url: ~
+  database_name: ~
+  image_table_name: images
+  image_relative_dir: ELI5/dev_set
+  batch_size: 8192
+
+  # image_cache_config:
+  #   type: WebServerImageCache
+  #   params:
+  #     image_cache_service_url: http://host_ip:port/image_cache
+  
+  image_cache_config:
+    type: LocalImageCache
+    params: {}
+  
+  multi_thread_config:
+    num_threads: 128
+    max_retry_on_failure: 0
+    log_warning_on_failure: True
+    mark_as_completed_on_failure: False
+    timeout: 10
+  max_retry: 1

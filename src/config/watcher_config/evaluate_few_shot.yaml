@@ -1,0 +1,52 @@
+type: EvaluateWatcher
+params:
+  mongodb_url: ~
+  database_name: ~
+  batch_size: 1000
+  evaluator_config:
+    type: FewShotEvaluator
+    params:
+
+      model_config:
+        type: OpenAIVLM
+        params:
+          model: gpt-4o-2024-08-06
+          openai_api_key: ~
+          openai_base_url: ~
+          use_local_image_file: True
+          image_to_base64: True
+          resize_image:
+            - 512
+            - 512
+      langchain_model_config:
+        type: OpenAILLM
+        params:
+          model: gpt-4o-mini-2024-07-18
+          openai_api_key: ~
+          openai_base_url: ~
+      
+      max_context_tokens: 512
+      multi_thread_config:
+        num_threads: 1
+        max_retry_on_failure: 0
+        log_warning_on_failure: True
+        mark_as_completed_on_failure: False
+        timeout: ~
+
+      log_dir: ./log
+  metrics:
+    - fluency
+    - response_relevancy
+    - context_precision
+    - faithfulness
+    - image_coherence
+    - image_helpfulness
+    - image_reference
+  
+  force_rerun: False
+  multi_thread_config:
+    num_threads: 1
+    max_retry_on_failure: 0
+    log_warning_on_failure: True
+    mark_as_completed_on_failure: False
+    timeout: 30

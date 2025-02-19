@@ -1,0 +1,47 @@
+type: ScoreImageWatcher
+params:
+  mongodb_url: ~
+  database_name: ~
+  batch_size: 1000
+  image_scorer_config:
+    type: ImageScorerPipeline
+    params:
+      image_scorer_config_list:
+        -
+          type: PixelImageScorer
+          params:
+            filter_config:
+              lower_limit: 10000
+              upper_limit: 4000000
+        -
+          type: FileSizeImageScorer
+          params:
+            filter_config:
+              lower_limit: 20480 # 20 KB
+            temp_dir: ~
+        -
+          type: WebServerCLIPImageScorer
+          params:
+            clip_service_url: ~
+        - 
+          type: VLMImageScorer
+          params:
+            model_config:
+              type: VLLMVLM
+              params:
+                model: minicpm-v-2.6
+                tokenizer_path: openbmb/MiniCPM-V-2_6
+                vllm_api_key: ~
+                vllm_service_url: ~
+                use_local_image_file: True
+                image_url: ~
+                image_root: ~
+                image_to_base64: True
+
+  score_aux_images: False
+  multi_thread_config:
+    num_threads: 32
+    max_retry_on_failure: 0
+    log_warning_on_failure: True
+    mark_as_completed_on_failure: False
+    timeout: ~

@@ -1,0 +1,11 @@
+### model
+model_name_or_path: ./models/Llama-3.1-8B-Instruct/original
+adapter_name_or_path: ./models/Llama-3.1-8B-Instruct/LoRA
+template: llama3
+finetuning_type: lora
+
+### export
+export_dir: ./models/Llama-3.1-8B-Instruct/merged
+export_size: 2
+export_device: cpu
+export_legacy_format: false

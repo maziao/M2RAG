@@ -1,0 +1,14 @@
+type: DownloadWebpageWatcher
+params:
+  mongodb_url: ~
+  database_name: ~
+  batch_size: 1000
+  crawler_config:
+    type: JinaAICralwer
+    params: 
+      multi_thread_config:
+        num_threads: 20
+        max_retry_on_failure: 0
+        log_warning_on_failure: True
+        mark_as_completed_on_failure: False
+        timeout: 20

@@ -1,0 +1,36 @@
+type: SummarizeWatcher
+params:
+  mongodb_url: ~
+  database_name: ~
+  batch_size: 200
+  summarizer_config:
+    type: MuRARSummarizer
+    params:
+      model_config:
+        type: OpenAILLM
+        params:
+          model: gpt-4o-2024-08-06
+          openai_api_key: ~
+          openai_base_url: ~
+
+      max_pieces_per_sample: 20
+      min_piece_score: 0.1
+      max_tokens_per_sample: 8192
+
+      max_images: 10
+      max_images_per_sample: 5
+      max_aux_images: 5
+      min_image_score: 3
+      
+      output_detailed_caption: False
+      embedding_service_url: ~
+      embedding_sim_threshold: 0.1
+  dry_run: False
+  multi_thread_config:
+    num_threads: 1
+    max_retry_on_failure: 0
+    log_warning_on_failure: True
+    mark_as_completed_on_failure: False
+    timeout: ~
+  log_dir: ./log
+  levels: [1]

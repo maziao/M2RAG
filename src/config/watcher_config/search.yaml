@@ -1,0 +1,16 @@
+type: SearchWatcher
+params:
+  mongodb_url: ~
+  database_name: ~
+  batch_size: 100
+  search_engine_config:
+    type: GoogleSearch
+    params: 
+      top_k: 10
+      multi_thread_config:
+        num_threads: 10
+        max_retry_on_failure: 0
+        log_warning_on_failure: True
+        mark_as_completed_on_failure: False
+        timeout: 60
+  log_dir: ./log

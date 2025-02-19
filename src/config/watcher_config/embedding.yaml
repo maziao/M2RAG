@@ -1,0 +1,5 @@
+type: EmbeddingScoreWatcher
+params:
+  mongodb_url: ~
+  database_name: ~
+  embedding_model_path_or_id: sentence-transformers/all-mpnet-base-v2

@@ -1,0 +1,235 @@
+cache_dir: ~
+image_dir: ~
+search_engine_config:
+  type: GoogleSearch
+  params: 
+    top_k: 10
+    multi_thread_config:
+      num_threads: 2
+      max_retry_on_failure: 0
+      log_warning_on_failure: True
+      mark_as_completed_on_failure: False
+      timeout: 60
+
+crawler_config:
+  type: JinaAICralwer
+  params: 
+    multi_thread_config:
+      num_threads: 10
+      max_retry_on_failure: 0
+      log_warning_on_failure: True
+      mark_as_completed_on_failure: False
+      timeout: 20
+
+webpage_cleaner_config:
+  type: WebpageCleaner
+  params:
+    model_config:
+      type: OpenAILLM
+      params:
+        model: gpt-4o-mini-2024-07-18
+        openai_api_key: ~
+        openai_base_url: ~
+    chunk_size: 1000
+    max_chunks: 200
+    multi_thread_config:
+      num_threads: 20
+      max_retry_on_failure: 0
+      log_warning_on_failure: True
+      mark_as_completed_on_failure: False
+      timeout: ~
+
+image_handler_config:
+  type: ImageHandler
+  params:
+    image_cache_config:
+      type: LocalImageCache
+      params:
+        image_root: ~
+        image_base_url: ~
+    # image_cache_config:
+    #   type: WebServerImageCache
+    #   params:
+    #     image_cache_service_url: http://118.195.140.93:65534/image_cache
+
+    # image_dedup_config:
+    #   type: PHashImageDeduplicateAgent
+    #   params: {}
+
+    image_scorer_config:
+      type: ImageScorerPipeline
+      params:
+        image_scorer_config_list:
+          -
+            type: PixelImageScorer
+            params:
+              filter_config:
+                lower_limit: 10000
+                upper_limit: 4000000
+          -
+            type: FileSizeImageScorer
+            params:
+              filter_config:
+                lower_limit: 20480 # 10 KB
+              temp_dir: ./log/tmp
+          # -
+          #   type: WebServerCLIPImageScorer
+          #   params:
+          #     clip_service_url: ~
+          - 
+            type: VLMImageScorer
+            params:
+              model_config:
+                type: OpenAIVLM
+                params:
+                  model: gpt-4o-mini-2024-07-18
+                  openai_api_key: ~
+                  openai_base_url: ~
+                  use_local_image_file: True
+                  image_url: ~
+                  image_root: ~
+                  image_to_base64: True
+                  resize_image:
+                    - 512
+                    - 512
+
+    image_caption_config:
+      type: ImageCaptionAgent
+      params:
+        model_config:
+          type: OpenAIVLM
+          params:
+            model: gpt-4o-2024-08-06
+            openai_api_key: ~
+            openai_base_url: ~
+            use_local_image_file: True
+            image_to_base64: True
+            resize_image:
+              - 512
+              - 512
+        use_context: True
+        use_query: False
+        max_context_tokens: 512
+
+    multi_thread_config:
+      num_threads: 60
+      max_retry_on_failure: 0
+      log_warning_on_failure: True
+      mark_as_completed_on_failure: False
+      timeout: 60
+    
+    max_images: 100
+
+aux_image_handler_config:
+  type: AuxiliaryImageHandler
+  params:
+    image_cache_config:
+        type: LocalImageCache
+        params:
+          image_root: ~
+          image_base_url: ~
+      
+    # image_cache_config:
+    #   type: WebServerImageCache
+    #   params:
+    #     image_cache_service_url: http://118.195.140.93:65534/image_cache
+
+    image_scorer_config:
+      type: ImageScorerPipeline
+      params:
+        image_scorer_config_list:
+          -
+            type: PixelImageScorer
+            params:
+              filter_config:
+                lower_limit: 10000
+                upper_limit: 4000000
+          -
+            type: FileSizeImageScorer
+            params:
+              filter_config:
+                lower_limit: 20480 # 20 KB
+              temp_dir: ~
+          # -
+          #   type: WebServerCLIPImageScorer
+          #   params:
+          #     clip_service_url: ~
+          - 
+            type: VLMImageScorer
+            params:
+              model_config:
+                type: OpenAIVLM
+                params:
+                  model: gpt-4o-mini-2024-07-18
+                  openai_api_key: ~
+                  openai_base_url: ~
+                  use_local_image_file: True
+                  image_url: ~
+                  image_root: ~
+                  image_to_base64: True
+                  resize_image:
+                    - 512
+                    - 512
+
+    image_caption_config:
+      type: ImageCaptionAgent
+      params:
+        model_config:
+          type: OpenAIVLM
+          params:
+            model: gpt-4o-2024-08-06
+            openai_api_key: ~
+            openai_base_url: ~
+            use_local_image_file: True
+            image_to_base64: True
+            resize_image:
+              - 512
+              - 512
+        use_context: False
+        use_query: True
+        max_context_tokens: 512
+    
+    multi_thread_config:
+      num_threads: 60
+      max_retry_on_failure: 0
+      log_warning_on_failure: True
+      mark_as_completed_on_failure: False
+      timeout: 60
+    
+    max_images: 100
+
+summarizer_config:
+  type: M2RAGVLMSummarizer
+  params:
+    model_config:
+      type: OpenAIVLM
+      params:
+        model: gpt-4o-2024-08-06
+        openai_api_key: ~
+        openai_base_url: ~
+        use_local_image_file: True
+        image_to_base64: True
+        resize_image:
+          - 512
+          - 512
+    
+    max_pieces_per_sample: 20
+    min_piece_score: 3
+    max_tokens_per_sample: 8192
+
+    max_images: 10
+    max_images_per_sample: 5
+    max_aux_images: 5
+    max_image_score: 1.0e+10
+    min_image_score: 3
+    
+    output_detailed_caption: False
+    multi_stage: False
+    use_orig_image: False
+
+multi_thread_config:
+  num_threads: 5
+  max_retry_on_failure: 0
+  log_warning_on_failure: True
+  mark_as_completed_on_failure: False
+  timeout: ~

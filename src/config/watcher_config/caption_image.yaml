@@ -1,0 +1,34 @@
+type: CaptionTaskWatcher
+params:
+  mongodb_url: ~
+  database_name: ~
+  batch_size: 1000
+  caption_config:
+    type: ImageCaptionAgent
+    params:
+      model_config:
+        type: OpenAIVLM
+        params:
+          model: gpt-4o-2024-08-06
+          openai_api_key: ~
+          openai_base_url: ~
+          use_local_image_file: True
+          image_to_base64: True
+          resize_image:
+            - 512
+            - 512
+
+      use_context: True
+      use_query: False
+      max_context_tokens: 512
+      # concise: True
+  use_orig_image: False
+  caption_aux_images: False
+  log_dir: ./log
+  multi_thread_config:
+    num_threads: 64
+    max_retry_on_failure: 0
+    log_warning_on_failure: True
+    mark_as_completed_on_failure: False
+    timeout: ~
+  
