@@ -66,7 +66,8 @@ if __name__ == "__main__":
         summarize_log_dir = summarize_log_dir[:-1]
     
     summarizer_id = os.path.basename(summarize_log_dir)
-    for summary in samples[:10]:
+
+    for summary in samples:
         manager.add_task(
             evaluator.evaluate,
             None,
