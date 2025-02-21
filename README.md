@@ -107,7 +107,7 @@ Implementation of paper [Multi-modal Retrieval Augmented Multi-modal Generation:
 
 3. **Evaluate the results:**
 
-    Customize the evaluation configuration [here](./src/config/evaluate_custom.yaml):
+    You can customize the evaluation configuration [here](./src/config/evaluate_custom.yaml).
 
     ```shell
     python evaluate.py \
