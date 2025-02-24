@@ -138,7 +138,7 @@ Take **Llama-3.1-8B-Instruct** as an example:
 
     ```shell
     mkdir -p models/Llama-3.1-8B-Instruct/LoRA
-    huggingface-cli download DataHammer/T2I_Eval-MiniCPM-V-2_6 \
+    huggingface-cli download ylwt/M2RAG-Llama-3.1-8B-Instruct \
       --local-dir models/Llama-3.1-8B-Instruct/LoRA
     ```
 
